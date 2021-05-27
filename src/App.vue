@@ -1,27 +1,26 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      
-    </v-app-bar>
+    <v-app-bar app> </v-app-bar>
 
     <v-main>
-      <Messages/>
+      <br />
+      <NewMessage />
+      <br />
+      <Messages />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Messages from './components/Messages';
+import Messages from "./components/Messages";
+import NewMessage from "./components/NewMessage";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     Messages,
+    NewMessage,
   },
 
   data: () => ({
