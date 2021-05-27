@@ -1,28 +1,22 @@
 <template>
   <v-app>
-    <v-app-bar app> </v-app-bar>
-
+    <v-app-bar app>
+      <v-btn plain to="/">Messages</v-btn>
+      <v-btn plain to="/newmessage">New Messages</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn plain to="/register">Register</v-btn>
+      <v-btn plain>Login</v-btn>
+    </v-app-bar>
     <v-main>
       <br />
-      <NewMessage />
-      <br />
-      <Messages />
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Messages from "./components/Messages";
-import NewMessage from "./components/NewMessage";
-
 export default {
   name: "App",
-
-  components: {
-    Messages,
-    NewMessage,
-  },
-
   data: () => ({
     //
   }),

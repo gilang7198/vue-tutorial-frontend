@@ -6,16 +6,13 @@
       </v-toolbar>
       <v-list>
         <v-list-item
-          v-for="items in messages"
+          v-for="(items, index) in this.$store.state.messages"
           :key="items"
-          @click="
-            '';
-
-
-          "
+          :to="'detailmessage/' + index"
         >
           <v-list-item-content>
-            <v-list-item-title v-text="items"></v-list-item-title>
+            <v-list-item-title v-text="items.text"></v-list-item-title>
+            <v-list-item-subtitle v-text="items.user"></v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -24,20 +21,9 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  data() {
-    return {
-      messages: [],
-    };
-  },
   async created() {
-    this.messages = (await axios.get("http://localhost:3000/messages")).data;
-
-    this.$root.$on("newMessage", (message) => {
-      this.messages.push(message);
-    });
+    this.$store.dispatch("getMessages");
   },
 };
 </script>

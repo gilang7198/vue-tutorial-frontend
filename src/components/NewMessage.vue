@@ -1,9 +1,9 @@
 <template>
   <v-flex sm8 offset-sm2>
-    <v-toolbar dark>
-      <v-toolbar-title>New Messages</v-toolbar-title>
-    </v-toolbar>
     <v-card>
+      <v-toolbar dark>
+        <v-toolbar-title>New Messages</v-toolbar-title>
+      </v-toolbar>
       <v-form>
         <v-container>
           <v-row>
@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -36,12 +34,7 @@ export default {
   methods: {
     async submit() {
       try {
-        let msg = (
-          await axios.post("http://localhost:3000/messages", {
-            message: this.messageBody,
-          })
-        ).data;
-        this.$root.$emit("newMessage", msg.message);
+        this.$store.dispatch("newMessage", this.messageBody);
       } catch (error) {
         console.log(error);
       }
