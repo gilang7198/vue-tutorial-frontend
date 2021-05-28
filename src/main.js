@@ -8,6 +8,7 @@ import Messages from '@/components/Messages';
 import NewMessage from '@/components/NewMessage';
 import DetailMessage from '@/components/DetailMessage';
 import Register from '@/components/Register';
+import Login from '@/components/Login';
 
 Vue.config.productionTip = false
 
@@ -25,6 +26,9 @@ const routes = [
   },
   {
     path: "/register", component: Register
+  },
+  {
+    path: "/login", component: Login
   }
 ]
 

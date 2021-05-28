@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        messages: []
+        messages: [],
+        token: localStorage.getItem('token') || ''
     },
     mutations: {
         updateMessages(state, messages) {
@@ -14,6 +15,13 @@ export default new Vuex.Store({
         },
         newMessage(state, message) {
             state.messages.push(message)
+        },
+        auth(state, token) {
+            state.token = token
+        },
+        logout(state) {
+            state.token = ''
+            localStorage.clear('token')
         }
     },
     actions: {
@@ -32,11 +40,17 @@ export default new Vuex.Store({
         async getMessage(_, id) {
             return axios.get(`http://localhost:3000/messages/${id}`)
         },
-        async register(_, registerData) {
-            let user = (await axios.post("http://localhost:3000/register", registerData)).data;
-            console.log(user)
-            localStorage.setItem("token", user.id)
-            axios.defaults.headers.common['Authorization'] = user.id;
+        async register({commit}, registerData) {
+            let token = (await axios.post("http://localhost:3000/register", registerData)).data;
+            localStorage.setItem("token", token)
+            axios.defaults.headers.common['Authorization'] = token;
+            commit("auth", token);
+        },
+        async login({commit}, loginData) {
+            let token = (await axios.post("http://localhost:3000/login", loginData)).data;
+            localStorage.setItem("token", token)
+            axios.defaults.headers.common['Authorization'] = token;
+            commit("auth", token);
         },
     }
 })
